@@ -1,0 +1,142 @@
+# task_1
+## Подключить репозиторий с nginx любым удобным способом, установить nginx и потом удалить nginx, используя утилиту dpkg.
+student@Ubuntu-MySQL-VirtualBox:~$ mkdir nginx-deb
+student@Ubuntu-MySQL-VirtualBox:~$ cd nginx-deb/
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ apt list | grep ^nginx | cut -d "/" -f1
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+nginx
+nginx-common
+nginx-core
+nginx-core-dbg
+nginx-doc
+nginx-extras
+nginx-extras-dbg
+nginx-full
+nginx-full-dbg
+nginx-light
+nginx-light-dbg
+Получено 3 341 kB за 1с (2 971 kB/s)          
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ apt download nginx-core
+Пол:1 http://ru.archive.ubuntu.com/ubuntu xenial-updates/main amd64 nginx-core amd64 1.10.3-0ubuntu0.16.04.5 [429 kB]
+Получено 429 kB за 0с (656 kB/s)     
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ apt download nginx-common 
+Пол:1 http://ru.archive.ubuntu.com/ubuntu xenial-updates/main amd64 nginx-common all 1.10.3-0ubuntu0.16.04.5 [26,9 kB]
+Получено 26,9 kB за 0с (335 kB/s) 
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ apt download nginx
+Пол:1 http://ru.archive.ubuntu.com/ubuntu xenial-updates/main amd64 nginx all 1.10.3-0ubuntu0.16.04.5 [3 494 B]
+Получено 3 494 B за 0с (36,4 kB/s)
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ sudo dpkg -i nginx-common_1.10.3-0ubuntu0.16.04.5_all.deb 
+Выбор ранее не выбранного пакета nginx-common.
+(Чтение базы данных … на данный момент установлено 259390 файлов и каталогов.)
+Подготовка к распаковке nginx-common_1.10.3-0ubuntu0.16.04.5_all.deb …
+Распаковывается nginx-common (1.10.3-0ubuntu0.16.04.5) …
+Настраивается пакет nginx-common (1.10.3-0ubuntu0.16.04.5) …
+Обрабатываются триггеры для systemd (229-4ubuntu21.27) …
+Обрабатываются триггеры для ureadahead (0.100.0-19) …
+Обрабатываются триггеры для ufw (0.35-0ubuntu2) …
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ sudo dpkg -i nginx-core_1.10.3-0ubuntu0.16.04.5_amd64.deb 
+Выбор ранее не выбранного пакета nginx-core.
+(Чтение базы данных … на данный момент установлено 259435 файлов и каталогов.)
+Подготовка к распаковке nginx-core_1.10.3-0ubuntu0.16.04.5_amd64.deb …
+Распаковывается nginx-core (1.10.3-0ubuntu0.16.04.5) …
+Настраивается пакет nginx-core (1.10.3-0ubuntu0.16.04.5) …
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ sudo dpkg -i nginx_1.10.3-0ubuntu0.16.04.5_all.deb 
+Выбор ранее не выбранного пакета nginx.
+(Чтение базы данных … на данный момент установлено 259440 файлов и каталогов.)
+Подготовка к распаковке nginx_1.10.3-0ubuntu0.16.04.5_all.deb …
+Распаковывается nginx (1.10.3-0ubuntu0.16.04.5) …
+Настраивается пакет nginx (1.10.3-0ubuntu0.16.04.5) …
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ nginx -h
+nginx version: nginx/1.10.3 (Ubuntu)
+Usage: nginx [-?hvVtTq] [-s signal] [-c filename] [-p prefix] [-g directives]
+
+Options:
+  -?,-h         : this help
+  -v            : show version and exit
+  -V            : show version and configure options then exit
+  -t            : test configuration and exit
+  -T            : test configuration, dump it and exit
+  -q            : suppress non-error messages during configuration testing
+  -s signal     : send signal to a master process: stop, quit, reopen, reload
+  -p prefix     : set prefix path (default: /usr/share/nginx/)
+  -c filename   : set configuration file (default: /etc/nginx/nginx.conf)
+  -g directives : set global directives out of configuration file
+
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ sudo dpkg -P nginx-core-dbg 
+(Чтение базы данных … на данный момент установлено 259439 файлов и каталогов.)
+Удаляется nginx-core-dbg (1.10.3-0ubuntu0.16.04.5) …
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ sudo dpkg -P nginx-core
+(Чтение базы данных … на данный момент установлено 259434 файла и каталога.)
+Удаляется nginx-core (1.10.3-0ubuntu0.16.04.5) …
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ sudo dpkg -P nginx-common 
+(Чтение базы данных … на данный момент установлено 259429 файлов и каталогов.)
+Удаляется nginx-common (1.10.3-0ubuntu0.16.04.5) …
+Вычищаются файлы настройки пакета nginx-common (1.10.3-0ubuntu0.16.04.5) …
+dpkg: предупреждение: при удалении nginx-common каталог «/var/www/html» не пуст, поэтому не удалён
+student@Ubuntu-MySQL-VirtualBox:~/nginx-deb$ nginx -h
+Приложение 'nginx' может быть найдено в следующих пакетах:
+ * nginx-core
+ * nginx-extras
+ * nginx-full
+ * nginx-light
+Попробуйте: sudo apt install <выбранный пакет>
+
+# task_2
+## Установить пакет на свой выбор, используя snap.
+student@Ubuntu-MySQL-VirtualBox:~$ sudo snap install jupyter
+2022-06-22T20:20:31+03:00 INFO Waiting for automatic snapd restart...
+jupyter 1.0.0 from Jupyter Project (projectjupyter✓) installed
+student@Ubuntu-MySQL-VirtualBox:~$ jupyter --help
+usage: jupyter [-h] [--version] [--config-dir] [--data-dir] [--runtime-dir]
+               [--paths] [--json]
+               [subcommand]
+
+Jupyter: Interactive Computing
+
+positional arguments:
+  subcommand     the subcommand to launch
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --version      show the jupyter command's version and exit
+  --config-dir   show Jupyter config dir
+  --data-dir     show Jupyter data dir
+  --runtime-dir  show Jupyter runtime dir
+  --paths        show all Jupyter paths. Add --json for machine-readable
+                 format.
+  --json         output paths as machine-readable json
+
+Available subcommands: bundlerextension console kernel kernelspec migrate
+nbconvert nbextension notebook run serverextension troubleshoot trust
+
+# task_3
+## Настроить iptables: разрешить подключения только на 22-й и 80-й порты.
+student@Ubuntu-MySQL-VirtualBox:~$ sudo iptables -L
+[sudo] пароль для student: 
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+
+student@Ubuntu-MySQL-VirtualBox:~$ sudo iptables -P INPUT DROP
+
+student@Ubuntu-MySQL-VirtualBox:~$ sudo iptables -A INPUT -p tcp —dport 22 -j ACCEPT
+student@Ubuntu-MySQL-VirtualBox:~$ sudo iptables -A INPUT -p tcp —dport 80 -j ACCEPT
+student@Ubuntu-MySQL-VirtualBox:~$ sudo iptables -L
+[sudo] пароль для student: 
+Chain INPUT (policy DROP)
+target     prot opt source               destination         
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:ssh
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:http
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination   

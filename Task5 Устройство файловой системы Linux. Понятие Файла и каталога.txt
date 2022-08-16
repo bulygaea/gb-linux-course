@@ -1,0 +1,106 @@
+# task_1
+## Создать файл file1 и наполнить его произвольным содержимым.
+## Скопировать его в file2. Создать символическую ссылку file3 на file1.
+## Создать жёсткую ссылку file4 на file1. Посмотреть, какие inode у файлов.
+## Удалить file1. Что стало с остальными созданными файлами?
+## Попробовать вывести их на экран.
+student@Ubuntu-MySQL-VirtualBox:~$ echo Hello, World! > file1
+student@Ubuntu-MySQL-VirtualBox:~$ cat file1
+Hello, World!
+student@Ubuntu-MySQL-VirtualBox:~$ cp file1 file2
+student@Ubuntu-MySQL-VirtualBox:~$ ln -s file1 file3
+student@Ubuntu-MySQL-VirtualBox:~$ ln file1 file4
+student@Ubuntu-MySQL-VirtualBox:~$ ls -il
+итого 444
+680586 -rw-rw-r-- 1 student student   6118 июн 20 17:20 errors.txt
+680307 -rw-r--r-- 1 student student   8980 апр 22  2019 examples.desktop
+680579 -rw-rw-r-- 2 student student     14 июн 20 19:20 file1
+680582 -rw-rw-r-- 1 student student     14 июн 20 19:20 file2
+680602 lrwxrwxrwx 1 student student      5 июн 20 19:23 file3 -> file1
+680579 -rw-rw-r-- 2 student student     14 июн 20 19:20 file4
+680584 -rw-rw-r-- 1 student student     14 июн 20 17:19 hello_world.txt
+680595 -rw-rw-r-- 1 student student     13 июн 20 17:46 new_file
+680587 -rw-rw-r-- 1 student student 379198 июн 20 17:20 result.txt
+650417 drwxr-xr-x 2 student student   4096 апр 22  2019 Видео
+650414 drwxr-xr-x 2 student student   4096 апр 22  2019 Документы
+650411 drwxr-xr-x 2 student student   4096 апр 22  2019 Загрузки
+650416 drwxr-xr-x 2 student student   4096 апр 22  2019 Изображения
+650415 drwxr-xr-x 2 student student   4096 апр 22  2019 Музыка
+650413 drwxr-xr-x 2 student student   4096 апр 22  2019 Общедоступные
+650410 drwxr-xr-x 2 student student   4096 апр 22  2019 Рабочий стол
+650412 drwxr-xr-x 2 student student   4096 апр 22  2019 Шаблоны
+
+##
+# inode совпадает у файлов file1 и file4
+##
+
+student@Ubuntu-MySQL-VirtualBox:~$ cat file1
+Hello, World!
+student@Ubuntu-MySQL-VirtualBox:~$ cat file2
+Hello, World!
+student@Ubuntu-MySQL-VirtualBox:~$ cat file3
+Hello, World!
+student@Ubuntu-MySQL-VirtualBox:~$ cat file4
+Hello, World!
+student@Ubuntu-MySQL-VirtualBox:~$ rm file1
+student@Ubuntu-MySQL-VirtualBox:~$ cat file2
+Hello, World!
+student@Ubuntu-MySQL-VirtualBox:~$ cat file3
+cat: file3: Нет такого файла или каталога
+student@Ubuntu-MySQL-VirtualBox:~$ cat file4
+Hello, World!
+
+# task_2
+## Дать созданным файлам другие, произвольные имена.
+## Создать новую символическую ссылку. Переместить ссылки в другую директорию.
+student@Ubuntu-MySQL-VirtualBox:~$ mv file2 file_name2
+student@Ubuntu-MySQL-VirtualBox:~$ cat file_name2
+Hello, World!
+student@Ubuntu-MySQL-VirtualBox:~$ ln -s /home/student/file_name2 file_name3
+student@Ubuntu-MySQL-VirtualBox:~$ mkdir dir1
+student@Ubuntu-MySQL-VirtualBox:~$ mv file_name3 dir1
+student@Ubuntu-MySQL-VirtualBox:~$ cat dir1/file_name3 
+Hello, World!
+student@Ubuntu-MySQL-VirtualBox:~$ echo Hello, World! > file1
+student@Ubuntu-MySQL-VirtualBox:~$ mv file1 file_name1
+student@Ubuntu-MySQL-VirtualBox:~$ ln -s file_name1 file_name3
+student@Ubuntu-MySQL-VirtualBox:~$ mv file_name3 dir1
+student@Ubuntu-MySQL-VirtualBox:~$ ls -l dir1
+итого 0
+lrwxrwxrwx 1 student student 10 июн 20 19:37 file_name3 -> file_name1
+student@Ubuntu-MySQL-VirtualBox:~$ cat dir1/file_name3 
+cat: dir1/file_name3: Нет такого файла или каталога
+
+# task_3
+## Создать два произвольных файла.
+## Первому присвоить права на чтение и запись для владельца и группы, только на чтение — для всех.
+## Второму присвоить права на чтение и запись только для владельца.
+student@Ubuntu-MySQL-VirtualBox:~$ touch file1 file2
+student@Ubuntu-MySQL-VirtualBox:~$ ls -l
+итого 44
+-rw-r--r-- 1 student student 8980 апр 22  2019 examples.desktop
+-rw-rw-r-- 1 student student    0 июн 20 19:39 file1
+-rw-rw-r-- 1 student student    0 июн 20 19:39 file2
+drwxr-xr-x 2 student student 4096 апр 22  2019 Видео
+drwxr-xr-x 2 student student 4096 апр 22  2019 Документы
+drwxr-xr-x 2 student student 4096 апр 22  2019 Загрузки
+drwxr-xr-x 2 student student 4096 апр 22  2019 Изображения
+drwxr-xr-x 2 student student 4096 апр 22  2019 Музыка
+drwxr-xr-x 2 student student 4096 апр 22  2019 Общедоступные
+drwxr-xr-x 2 student student 4096 апр 22  2019 Рабочий стол
+drwxr-xr-x 2 student student 4096 апр 22  2019 Шаблоны
+student@Ubuntu-MySQL-VirtualBox:~$ chmod 664 file1
+student@Ubuntu-MySQL-VirtualBox:~$ chmod 600 file2
+student@Ubuntu-MySQL-VirtualBox:~$ ls -l
+итого 44
+-rw-r--r-- 1 student student 8980 апр 22  2019 examples.desktop
+-rw-rw-r-- 1 student student    0 июн 20 19:39 file1
+-rw------- 1 student student    0 июн 20 19:39 file2
+drwxr-xr-x 2 student student 4096 апр 22  2019 Видео
+drwxr-xr-x 2 student student 4096 апр 22  2019 Документы
+drwxr-xr-x 2 student student 4096 апр 22  2019 Загрузки
+drwxr-xr-x 2 student student 4096 апр 22  2019 Изображения
+drwxr-xr-x 2 student student 4096 апр 22  2019 Музыка
+drwxr-xr-x 2 student student 4096 апр 22  2019 Общедоступные
+drwxr-xr-x 2 student student 4096 апр 22  2019 Рабочий стол
+drwxr-xr-x 2 student student 4096 апр 22  2019 Шаблоны

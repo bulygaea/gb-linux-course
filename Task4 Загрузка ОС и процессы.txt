@@ -1,0 +1,94 @@
+# task_1
+## Потоки ввода/вывода. Создать файл, используя команду echo.
+## Используя команду cat, прочитать содержимое всех файлов каталога etc, ошибки перенаправить в отдельный файл.
+student@Ubuntu-MySQL-VirtualBox:~$ echo Hello, world! > hello_world.txt
+student@Ubuntu-MySQL-VirtualBox:~$ cat /etc/* 1>result.txt 2>errors.txt
+student@Ubuntu-MySQL-VirtualBox:~$ tail result.txt 
+# installation of packages available from the repository
+
+if [[ -x /usr/lib/command-not-found ]] ; then
+	if (( ! ${+functions[command_not_found_handler]} )) ; then
+		function command_not_found_handler {
+			[[ -x /usr/lib/command-not-found ]] || return 1
+			/usr/lib/command-not-found --no-failure-msg -- ${1+"$1"} && :
+		}
+	fi
+fi
+student@Ubuntu-MySQL-VirtualBox:~$ tail errors.txt 
+cat: /etc/update-motd.d: Это каталог
+cat: /etc/update-notifier: Это каталог
+cat: /etc/UPower: Это каталог
+cat: /etc/usb_modeswitch.d: Это каталог
+cat: /etc/vim: Это каталог
+cat: /etc/wildmidi: Это каталог
+cat: /etc/wpa_supplicant: Это каталог
+cat: /etc/X11: Это каталог
+cat: /etc/xdg: Это каталог
+cat: /etc/xml: Это каталог
+
+# task_2
+## Потоки ввода/вывода. Создать файл, используя команду echo.
+## Используя команду cat, прочитать содержимое всех файлов каталога etc, ошибки перенаправить в отдельный файл
+student@Ubuntu-MySQL-VirtualBox:~$ ll | sed 1d | cut -f1 -d' ' | sort | uniq
+drwx------
+drwxrwxr-x
+drwxr-xr-x
+-rw-------
+-rw-r-----
+-rw-r--r--
+-rw-rw-r--
+
+# task_3
+## Управление процессами.) Изменить конфигурационный файл службы SSH: /etc/ssh/sshd_config,
+## отключив аутентификацию по паролю PasswordAuthentication no.
+## Выполните рестарт службы systemctl restart sshd (service sshd restart), верните аутентификацию по паролю,
+## выполните reload службы systemctl reload sshd (services sshd reload).
+## В чём различие между действиями restart и reload?
+## Создайте файл при помощи команды cat > file_name, напишите текст и завершите комбинацией ctrl+d.
+## Какой сигнал передадим процессу?
+student@Ubuntu-MySQL-VirtualBox:~$ sudo vim /etc/ssh/sshd_config 
+[sudo] пароль для student: 
+student@Ubuntu-MySQL-VirtualBox:~$ systemctl restart sshd
+student@Ubuntu-MySQL-VirtualBox:~$ sudo vim /etc/ssh/sshd_config 
+student@Ubuntu-MySQL-VirtualBox:~$ systemctl reload sshd
+student@Ubuntu-MySQL-VirtualBox:~$ systemctl status sshd
+● ssh.service - OpenBSD Secure Shell server
+   Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+   Active: active (running) since Пн 2022-06-20 17:34:53 MSK; 6min ago
+  Process: 2248 ExecReload=/bin/kill -HUP $MAINPID (code=exited, status=0/SUCCESS)
+  Process: 2247 ExecReload=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+  Process: 2221 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+ Main PID: 2222 (sshd)
+   CGroup: /system.slice/ssh.service
+           └─2222 /usr/sbin/sshd -D
+
+июн 20 17:34:53 Ubuntu-MySQL-VirtualBox systemd[1]: Starting OpenBSD Secure Shell server...
+июн 20 17:34:53 Ubuntu-MySQL-VirtualBox sshd[2222]: Server listening on 0.0.0.0 port 22.
+июн 20 17:34:53 Ubuntu-MySQL-VirtualBox sshd[2222]: Server listening on :: port 22.
+июн 20 17:34:53 Ubuntu-MySQL-VirtualBox systemd[1]: Started OpenBSD Secure Shell server.
+июн 20 17:36:25 Ubuntu-MySQL-VirtualBox systemd[1]: Reloading OpenBSD Secure Shell server.
+июн 20 17:36:25 Ubuntu-MySQL-VirtualBox sshd[2222]: Received SIGHUP; restarting.
+июн 20 17:36:25 Ubuntu-MySQL-VirtualBox systemd[1]: Reloaded OpenBSD Secure Shell server.
+июн 20 17:36:25 Ubuntu-MySQL-VirtualBox sshd[2222]: Server listening on 0.0.0.0 port 22.
+июн 20 17:36:25 Ubuntu-MySQL-VirtualBox sshd[2222]: Server listening on :: port 22.
+
+##
+# restart - перезапускает процесс (меняется PID)
+# reload - перезагружает процесс (PID остается, применяются изменения)
+##
+
+student@Ubuntu-MySQL-VirtualBox:~$ cat > new_file
+Example line
+student@Ubuntu-MySQL-VirtualBox:~$ cat new_file 
+Example line
+
+##
+# Код завершения - 15. Файл записывается, и процесс завершается.
+##
+
+# task_4
+## Сигналы процессам. Запустите mc. Используя ps, найдите PID процесса, завершите процесс, передав ему сигнал 9.
+student@Ubuntu-MySQL-VirtualBox:~$ ps aux | grep mc
+student   2324  0.0  0.8  63428  8476 pts/4    S+   17:52   0:00 mc
+student   2346  0.0  0.0  15472   876 pts/18   S+   17:55   0:00 grep --color=auto mc
+student@Ubuntu-MySQL-VirtualBox:~$ kill -s 9 2324

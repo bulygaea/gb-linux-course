@@ -1,0 +1,111 @@
+# task_1 и task_2
+## Создать каталоги students и mentors в домашней директории, а в них — текстовые файлы students_list.txt и mentors_list.txt соответственно.
+## Открыть созданные в п.1 файлы в любом текстовом редакторе и заполнить их (в соответствии с названием) списком Ваших одногруппников и наставников на данном потоке.
+student@Ubuntu-MySQL-VirtualBox:~/students$ vim students_list.txt 
+student@Ubuntu-MySQL-VirtualBox:~/students$ more students_list.txt 
+Злата Пожарская
+Александр Дымченко
+Дамир Кадаев
+ЕленаВладимировна Трокель
+Оксана Охапкина
+Сергей Старунов
+Ольга Бунеску
+Тимур Валеев
+Александр Бородий
+Данил Иванов
+Максим Заиченко
+Асель Темербаева
+Анастасия Валерьевна Артюшина
+Анна Смольская
+Владимир Гребенев
+Артем Поспеев
+Антон Подборцев
+Денис Тузов
+Михаил Елистратов
+Андраник Авакян
+Дмитрий Григорьев
+Каныкей Атаярова
+Александр Вильянов
+Виталий Крипак
+Хачатур Мовсесян
+Татьяна Александрова
+Денис Рыжевский
+Игорь Самухин
+Антон Матвеев
+Дмитрий Пчелин
+Дмитрий Иванов
+Алексей Тищенко
+student@Ubuntu-MySQL-VirtualBox:~/students$ cd ../mentors/
+student@Ubuntu-MySQL-VirtualBox:~/mentors$ vim mentors_list.txt 
+student@Ubuntu-MySQL-VirtualBox:~/mentors$ more mentors_list.txt 
+Кирилл Иванов
+Алена Тектова
+Елена Федотова
+Алексей Олегович Сарнавский
+
+# task_3
+## Переместите файл mentors_list.txt в папку students.
+student@Ubuntu-MySQL-VirtualBox:~/mentors$ mv mentors_list.txt ../students/
+
+# task_4
+## Удалите папку mentors.
+student@Ubuntu-MySQL-VirtualBox:~/mentors$ cd ..
+student@Ubuntu-MySQL-VirtualBox:~$ rm mentors/ -r
+
+# task_5
+## Переименуйте папку students в students_and_mentors.
+student@Ubuntu-MySQL-VirtualBox:~$ mv students/ students_and_mentors/
+
+# task_6
+## Удалите папку students_and_mentors вместе с содержимым.
+student@Ubuntu-MySQL-VirtualBox:~$ rm students_and_mentors/ -r
+student@Ubuntu-MySQL-VirtualBox:~$ history 24
+   72  mkdir students
+   73  mkdir mentors
+   74  cd students/
+   75  touch students_list.txt
+   76  ls
+   77  cd ../
+   78  cd mentors/
+   79  touch mentors_list.txt
+   80  cd ../students/
+   81  vim students_list.txt 
+   82  sudo apt install vim
+   83  clear
+   84  tree
+   85  vim students_list.txt 
+   86  more students_list.txt 
+   87  cd ../mentors/
+   88  vim mentors_list.txt 
+   89  more mentors_list.txt 
+   90  mv mentors_list.txt ../students/
+   91  cd ..
+   92  rm mentors/ -r
+   93  mv students/ students_and_mentors/
+   94  rm students_and_mentors/ -r
+   95  history
+
+# task_7
+## Подключитесь к машине с Linux по протоколу SSH.
+student@Ubuntu-MySQL-VirtualBox:~$ sudo systemctl status ssh
+[sudo] пароль для student: 
+● ssh.service - OpenBSD Secure Shell server
+   Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+   Active: active (running) since Вт 2022-06-07 17:20:31 MSK; 1h 30min ago
+  Process: 1028 ExecReload=/bin/kill -HUP $MAINPID (code=exited, status=0/SUCCESS)
+  Process: 1022 ExecReload=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+  Process: 797 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+ Main PID: 817 (sshd)
+   CGroup: /system.slice/ssh.service
+           └─817 /usr/sbin/sshd -D
+
+июн 07 17:20:34 Ubuntu-MySQL-VirtualBox sshd[817]: Server listening on 0.0.0.0 port 22.
+июн 07 17:20:34 Ubuntu-MySQL-VirtualBox sshd[817]: Server listening on :: port 22.
+июн 07 17:20:34 Ubuntu-MySQL-VirtualBox systemd[1]: Reloading OpenBSD Secure Shell server.
+июн 07 17:20:34 Ubuntu-MySQL-VirtualBox sshd[817]: Received SIGHUP; restarting.
+июн 07 17:20:34 Ubuntu-MySQL-VirtualBox systemd[1]: Reloaded OpenBSD Secure Shell server.
+июн 07 17:20:34 Ubuntu-MySQL-VirtualBox sshd[817]: Server listening on 0.0.0.0 port 22.
+июн 07 17:20:34 Ubuntu-MySQL-VirtualBox sshd[817]: Server listening on :: port 22.
+июн 07 17:22:35 Ubuntu-MySQL-VirtualBox systemd[1]: Started OpenBSD Secure Shell server.
+июн 07 17:22:47 Ubuntu-MySQL-VirtualBox sshd[2011]: Accepted password for student from 192.168.43.116 port 53581 ssh2
+июн 07 17:22:47 Ubuntu-MySQL-VirtualBox sshd[2011]: pam_unix(sshd:session): session opened for user student by (uid=0)
